@@ -43,6 +43,8 @@ const userList = [
 function mapByUser (callback) {
     const mappedList = [];
     for (const user of userList) {
+        //"사용자 객체(user)를 너가 원하는 형태(item)로 바꿔줘(callback으로)"
+        // 그리고 그 결과를 새로운 배열에 담아줘!
         const item = callback(user);
         mappedList.push(item)
     }
@@ -67,6 +69,3 @@ const map3 = mapByUser(function (user) {
 });
 console.log(map3)
 
-// 객체는 중괄호(블록이라고 안부르고 객체 리터럴이라고 함) 뒤에 세미콜론 붙여야 함
-// 객체를 축약시켜서 리턴시킬때는 중괄호를 소괄호 안에 넣어야 함!
-// 이프문, 포문, 와일문, 함수 중괄호 뒤에는 세미콜론 붙이면 안됨
