@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="txt">
+<p class="show"></p>
+
+<script>
+    //사용자가 화면에서 어떤 곳을 클릭했을 때 개발자는 그 곳의 좌표 정보를 알 수 없다.
+    //그래서 브라우저가 그 좌표정보를 알려줘야 하는데, 그게 바로 이벤트 객체
+    //이벤트 객체가 콜백함수에 넣어 주어서 개발자는 알 수 있다.
+    //콜백함수의 e는 내가 넣어주는게 아니라 addEventListener가 넣어주는거다
+    document.addEventListener('click', (e) => {
+        // document.querySelector('.show').textContent = `x: ${e.x}, y: ${e.y}`;
+        const $msg = document.querySelector('.show');
+
+        if (e.shiftKey) {
+            $msg.textContent = `x: ${e.x}, y: ${e.y}`;
+        } else {
+            $msg.textContent = '';
+        }
+    });
+
+
+    const $input = document.getElementById('txt');
+    $input.addEventListener('keyup', (e) => {
+        // 입력값, 쉬프트키 ESC 뭘눌렀는지 어케앎??
+        //e.target하면 input 태그가 잡히고(#txt를 대체할 수 있음) .value하면 값나옴
+        // console.log(e.target.value);
+        // 인풋에 입력한게 바로 밑에 피태그에 뜸
+        //document.querySelector('.show').textContent = e.target.value;
+
+        if (e.key === 'Enter') {
+            document.querySelector('.show').textContent = e.target.value;
+            e.target.value = ''; // 입력창 리셋
+        }
+    });
+
+</script>
+</body>
+</html>
