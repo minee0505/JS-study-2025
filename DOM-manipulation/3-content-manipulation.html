@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+    <style>
+        .highlight {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div id="greet">
+    Hello <span class="highlight">World!</span>
+</div>
+
+<p>
+    세
+    로
+    드
+    립
+</p>
+
+<ul id="food-list">
+    <li class="food">고구마</li>
+    <li class="food">감자</li>
+    <li class="food">옥수수</li>
+</ul>
+
+<script>
+    const $greet = document.getElementById('greet');
+    console.log($greet.firstElementChild.textContent); // World!
+    console.log($greet.textContent); // (역슬래쉬+ 공백)Hello World!
+    console.log($greet.textContent.trim()); // 공백제거
+    console.log($greet.innerHTML); // Hello <span class="highlight">World!</span>, 태그까지 출력
+
+    // 순수하게 텍스트를 조작
+    // 텍스트만 남고,모든 HTML 태그(인라인이든 블록이든) 다 제거, 주의해서 사용!
+    $greet.textContent = '안녕~~하세요';
+
+    // 태그와 함께 텍스트를 조작
+    $greet.innerHTML = '안녕~~<span class="highlight">하세요</span>';
+
+    const $foodList = document.getElementById('food-list');
+
+    // 자식 태그 일괄 수정
+    $foodList.innerHTML = '<li>메롱</li>' // 기존에 ul에 있던 li 태그들이 다 사라지고 메롱만 남음
+
+    // 자식 태그를 추가
+    $foodList.innerHTML += '<li>즐~~</li>'
+
+    // 한번에 li 태그 5개 추가
+    for (let i = 1; i <= 5 ; i++) {
+        $foodList.innerHTML += `<li>잘가${i}</li>`
+    }
+    ['탕수육', '짜장면', '치킨'].forEach(food => {
+        $foodList.innerHTML += `<li>${food}</li>`;
+    });
+
+    // 자식 태그 전체 삭제
+    $foodList.innerHTML = '';
+</script>
+
+</body>
+</html>
