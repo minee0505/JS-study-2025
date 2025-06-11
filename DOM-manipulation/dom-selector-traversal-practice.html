@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM 연습</title>
+</head>
+<body>
+<section class="wrapper">
+    <div class="contents">
+        <h2 class="title">과일 리스트</h2>
+        <ul id="fruit-list">
+            <li class="fruit-item" id="apple">🍎 사과</li>
+            <li class="fruit-item" id="banana">🍌 바나나</li>
+            <li class="fruit-item" id="grape">🍇 포도</li>
+        </ul>
+    </div>
+</section>
+
+<script>
+// 1️⃣ 과일 목록의 부모를 선택한 뒤, 그 안에서 모든 과일 항목을 배열로 저장해라.
+const $ul = document.getElementById('fruit-list');
+const [$apple, $banana, $grape] = [...$ul.children];
+
+// 2️⃣ 포도 항목에서 이전 형제를 찾아 그 텍스트를 "🍌 잘 익은 바나나"로 바꿔라.
+$grape.previousElementSibling.textContent = '🍌 잘 익은 바나나'
+
+// 3️⃣ 사과 항목의 다음 형제를 찾아 글자 색을 초록색으로 변경해라.
+$apple.nextElementSibling.style.color = 'green';
+
+// 4️⃣ 바나나 항목을 기준으로 가장 가까운 .contents 조상 요소를 찾아 배경색을 연보라색으로 바꿔라.
+const $contents = $banana.closest('.contents');
+$contents.style.background = 'violet';
+
+// 5️⃣ 전체 리스트를 선택해서 첫 번째 과일 항목의 텍스트를 "🍏 청사과"로 변경해라.
+$ul.firstElementChild.textContent = '🍏 청사과'
+
+// 6️⃣ 리스트 요소에서 마지막 자식을 골라 그 안의 이모지를 복숭아로 바꿔라.
+$ul.lastElementChild.textContent = '🍑'
+
+// 7️⃣ 사과 항목을 기준으로 가장 가까운 section을 찾아 테두리를 추가해라.
+const $section = $apple.closest('section');
+$section.style.border = '1px solid black';
+
+// 8️⃣ 바나나 항목의 부모에서 자식들을 순회하며 각 항목마다 텍스트 뒤에 "🍽️"를 붙여라.
+[$apple, $banana, $grape].forEach(li => {
+    li.textContent = `${li.textContent}🍽`;
+})
+
+// 9️⃣ .wrapper 내부에서 .title 요소를 찾아 그 텍스트를 "🌈 과일 천국"으로 바꿔라.
+const $wrapper = document.querySelector('.wrapper')
+$wrapper.querySelector('.title').textContent = '🌈 과일 천국';
+
+// 🔟 #fruit-list의 자식 중 두 번째 항목을 선택해서 배경색을 노란색으로 바꿔라.
+const $second = document.querySelector('#fruit-list li:nth-child(2)')
+$second.style.background = 'yellow'
+
+// 1️⃣1️⃣ 포도 항목에서 .wrapper까지 거슬러 올라가 클래스를 fruit-wrapper로 변경해라.
+$grape.closest('.wrapper').className = 'fruit-wrapper';
+
+// 1️⃣2️⃣ 전체 과일 항목 중에서 .fruit-item들을 전부 선택하고 각각에 고유 ID를 "fruit-1", "fruit-2" 등으로 설정해라.
+const $fruitItems = document.querySelectorAll('.fruit-item');
+$fruitItems.forEach((li, idx) => {
+    li.id = `fruit-${idx + 1}`;
+});
+
+</script>
+</body>
+</html>
