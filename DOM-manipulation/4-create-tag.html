@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<ul id="hobbies">
+    <li>수영</li>
+
+    <script>
+        // 태그 동적 추가
+        const $hobbies = document.getElementById('hobbies');
+
+        // 1. 태그를 생성 - <li></li> (버츄얼)
+        const $newLi = document.createElement('li');
+
+        // 2. 필요한 컨텐츠 삽입 (버츄얼)
+        // $newLi.innerHTML = `<a href = "#">메롱</a>`
+        $newLi.textContent = '낮잠';
+
+        //3. 적당한 위치에 붙이기 (화면에 렌더링)
+        $hobbies.append($newLi);
+
+        const $newLi2 = document.createElement('li');
+        $newLi2.textContent = '요가';
+
+        $hobbies.prepend($newLi2);
+
+        // append는 댓글달면 밑에 추가될 때 사용, 오른쪽으로 들어가면
+        // prepend는 게시판 위에 추가될 때 사용, 왼쪽으로 들어가면
+
+        // append, prepend는 부모에게 명령해야 함.
+        // before, after는 자식에게 명령해야 함.
+
+        const $newLi3 = document.createElement('li');
+        $newLi3.textContent = '태권도';
+
+        $newLi.before($newLi3); // 낮잠 전에
+
+        // 새로운 태그를 생성해서 텍스트를 넣고 부모에게 붙이는 함수
+        // 인자로 options 객체를 받고, 기본값은 빈 객체 {}
+        function appendNewTag(options = {} ) {
+            // 새로운 HTML 태그를 만듦, options.tagName이 있으면 그걸로 만들고 없으면 기본값으로 'div'를 만듦
+            const $newTag = document.createElement(options.tagName || 'div');
+            // 태그 안에 들어갈 텍스트 내용을 설정, options.text가 있으면 그걸로 없으면 빈 문자열 ''로 설정
+            $newTag.textContent = options.text || '';
+            // parent로 전달된 요소에 새 태그를 붙임(append), append()는 마지막 자식으로 추가하는 메서드, 즉, options.parent가 있어야만 작동
+            options.parent.append($newTag);
+        }
+
+        const myhobbies = ['요리','친구놀리기','멍때리기', '독서'];
+        appendNewTag({
+            parent: $hobbies,
+            tagName: 'li',
+            text: '요리'
+        })
+
+
+    </script>
+</ul>
+</body>
+</html>
