@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <title>🎮 DOM 이벤트 연습장</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 40px;
+            background-color: #f0f8ff;
+        }
+
+        .game-box {
+            width: 300px;
+            height: 150px;
+            background-color: #ffffff;
+            border: 3px dashed #00bcd4;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .active {
+            background-color: lightgreen;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game" class="game-box">👾 DOM 이벤트 박스</div>
+<input type="text" id="textInput" placeholder="여기에 입력해봐!"/>
+<button id="resetBtn">🎲 리셋</button>
+
+<script>
+    // ==== 전역 변수 ====//
+    const $gameBox = document.getElementById('game');
+    const $textInput = document.getElementById('textInput');
+    const $resetBtn = document.getElementById('resetBtn');
+    const $body = document.querySelector('body')
+
+    // click
+    // 1. 박스를 클릭하면 `highlight` 클래스를 토글해라.
+    // 2. 박스를 클릭하면 텍스트를 `"🖱️ 클릭됨!"`으로 바꿔라.
+    $gameBox.addEventListener('click', () => {
+        $gameBox.classList.toggle('highlight')
+        $gameBox.textContent = "🖱️ 클릭됨!"
+    })
+    // 3. 버튼을 클릭하면 박스의 내용을 `"🎲 리셋됨"`으로 초기화해라.
+    $resetBtn.addEventListener('click', () => {
+        $gameBox.textContent = "🎲 리셋됨"
+    })
+
+    // dblclick
+    // 4. 박스를 더블클릭하면 `active` 클래스를 추가해라.
+    // 5. 박스를 더블클릭하면 배경색을 회색으로 변경해라.
+    // 6. 더블클릭 시 콘솔에 `"더블 클릭 감지됨"` 로그를 남겨라.
+    $gameBox.addEventListener('dblclick', () => {
+        $gameBox.classList.add('active');
+        $body.style.background = 'lightgray'
+        console.log('더블 클릭 감지됨')
+    })
+
+    // mouseover
+    // 7. 박스 위로 마우스를 올리면 `"마우스 올라감"` 로그 출력해라.
+    // 8. 마우스를 올리면 테두리를 실선으로 바꿔라.
+    // 9. 마우스를 올리면 텍스트를 `"Hovering!"`으로 바꿔라.
+    $gameBox.addEventListener('mouseover', () => {
+        console.log('마우스 올라감')
+        $gameBox.style.border = 'solid'
+        $gameBox.textContent = "Hovering!"
+    })
+
+    // mouseout
+    // 10. 박스에서 마우스를 내리면 `"마우스 나감"` 로그 출력해라.
+    // 11. 마우스를 내리면 테두리를 다시 점선으로 복구해라.
+    // 12. 마우스를 내리면 텍스트를 `"다시 나갔다!"`로 바꿔라.
+    $gameBox.addEventListener('mouseout', () => {
+        console.log("마우스 나감")
+        $gameBox.style.border = 'dashed'
+        $gameBox.textContent = "다시 나갔다!"
+    })
+
+    // mouseenter
+    // 13. 박스에 진입할 때 배경색을 연보라로 바꿔라.
+    // 14. 진입할 때 `highlight` 클래스를 추가해라.
+    // 15. 진입할 때 콘솔에 `"mouseenter 이벤트"` 출력해라.
+    $gameBox.addEventListener('mouseenter', () => {
+        $gameBox.style.background = 'violet'
+        $gameBox.classList.add('highlight')
+        // 13번이 인라인 스타일로 적용되어서 우선순위 더 높음 적용 안됨
+        console.log("mouseenter 이벤트")
+    })
+
+    // mouseleave
+    // 16. 박스에서 나갈 때 배경색을 원래대로 복구해라.
+    // 17. 나갈 때 `highlight` 클래스를 제거해라.
+    // 18. 나갈 때 텍스트를 `"👋 잘 가!"`로 변경해라.
+    $gameBox.addEventListener('mouseleave', () => {
+        $gameBox.style.background = 'transparent'
+        $gameBox.classList.remove('highlight')
+        $gameBox.textContent = "👋 잘 가!"
+    })
+
+    // keydown
+    // 19. 키보드 아무 키나 누르면 `"입력 중..."` 문구를 박스에 띄워라.
+    // 20. `Enter` 키를 누르면 `"엔터 입력!"`로 바꿔라.
+    // 21. 아무 키나 눌렀을 때 콘솔에 `"키 다운"` 출력해라.
+    $textInput.addEventListener('keydown', (e) => {
+        console.log("키 다운")
+        if (e.key === 'Enter') {
+            $gameBox.textContent = "엔터 입력!"
+        } else {
+            $gameBox.textContent = "입력 중..."
+        }
+    })
+
+    // keyup
+    // 22. 키보드를 뗐을 때 `"입력 완료"` 문구로 바꿔라.
+    // 23. `Escape` 키를 떼면 `"입력 취소"`로 바꿔라.
+    // 24. 키를 뗐을 때 현재 입력된 텍스트를 콘솔에 출력해라.
+    $textInput.addEventListener('keyup', (e) => {
+        console.log($textInput.value)
+        if (e.key === 'Escape') {
+            $gameBox.textContent = "입력 취소"
+            $textInput.value = '';
+        } else {
+            $gameBox.textContent = "입력 완료"
+        }
+    })
+
+    // input
+    // 25. 입력창에 글자를 입력할 때마다 실시간으로 박스에 표시해라.
+    // 26. 입력 내용이 10자를 넘으면 `"너무 깁니다!"`로 경고 표시해라.
+    // 27. 입력창에 아무것도 없으면 `"입력 대기중..."`으로 표시해라.
+    $textInput.addEventListener('input', () => {
+        const val = $textInput.value;
+
+        if (!val) {
+            $gameBox.textContent = '입력 대기중...';
+        } else if (val.length > 10) {
+            $gameBox.textContent = '너무 깁니다!';
+        } else {
+            $gameBox.textContent = val;
+        }
+    });
+
+</script>
+
+</body>
+</html>
