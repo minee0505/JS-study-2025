@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <title>DOM 속성 & 클래스 연습</title>
+    <style>
+        .box {
+            border: 2px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="target" class="box" data-info="초기값">
+    대상 요소입니다!
+</div>
+
+<script>
+    const $target = document.getElementById('target');
+    //      🔧 속성 관련 (setAttribute, getAttribute, removeAttribute, hasAttribute)
+    //         target 요소에 title 속성을 "설명 텍스트입니다"로 추가해 줘.
+    $target.setAttribute('title', '설명 텍스트입니다')
+    //         target 요소에 lang 속성을 "ko"로 설정해 줘.
+    $target.setAttribute('lang', 'ko');
+    //         방금 추가한 title 속성의 값을 가져와서 콘솔에 출력해 줘.
+    console.log($target.getAttribute('title'))
+    //         data-info 속성의 값을 가져와서 콘솔에 출력해 줘.
+    console.log($target.getAttribute('data-info'))
+    //         target 요소에 id가 존재하는지 확인하고 결과를 콘솔에 출력해 줘.
+    const flag1 = $target.hasAttribute('id')
+    console.log(flag1)
+    //         lang 속성이 존재하는지 확인하고 콘솔에 true/false 출력해 줘.
+    const flag2 = $target.hasAttribute('lang')
+    console.log(flag2)
+    //         title 속성을 제거해 줘.
+    $target.removeAttribute('title')
+    //         data-info 속성을 "변경된 값"으로 덮어써 줘.
+    $target.setAttribute('data-info', '변경된 값');
+    //         setAttribute를 이용해서 role="button" 속성을 추가해 줘.
+    $target.setAttribute('role', 'button')
+    //     getAttribute()로 role 속성값을 확인해봐.
+    console.log($target.getAttribute('role'))
+    // 🎨 클래스 관련 (classList)
+    //     target 요소에 "highlight" 클래스를 추가해 줘.
+    $target.classList.add('highlight')
+    //         target 요소에 "hidden" 클래스를 추가해 화면에서 숨겨줘.
+    $target.classList.add('hidden')
+    //     "highlight" 클래스를 제거해 줘.
+    $target.classList.remove('highlight')
+    //     "hidden" 클래스를 제거해서 다시 보이게 해 줘.
+    $target.classList.remove('hidden')
+    //     "box" 클래스를 "container"로 교체해 줘.
+    $target.classList.replace('box','container')
+    //     classList.contains()로 "box" 클래스가 있는지 확인해줘.
+    const flag3 = $target.classList.contains('box')
+    console.log(flag3)
+    //     classList.contains()로 "highlight" 클래스가 있는지 확인해줘.
+    const flag4 = $target.classList.contains('highlight')
+    console.log(flag4)
+    //     toggle()을 사용해 "highlight" 클래스를 토글 방식으로 켜줘 (1회 실행 시 추가됨).
+    const $on = $target.classList.toggle('highlight')
+    //     또다시 toggle()을 실행해서 "highlight" 클래스를 다시 꺼줘 (제거됨).
+    const $off = $target.classList.toggle('highlight')
+    //         한 번에 "active", "rounded" 두 클래스를 add()로 넣어줘.
+    $target.classList.add('active','rounded')
+</script>
+
+</body>
+</html>
