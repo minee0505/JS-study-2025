@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>도시락 알림</title>
+    <style>
+        .notice {
+            width: 300px;
+            min-height: 30px;
+            padding: 10px;
+            border: 2px dashed orange;
+            margin-bottom: 10px;
+        }
+        .log {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="notice"></div>
+<div class="log"></div>
+<button class="stopBtn">그만 받기</button>
+
+<script>
+    const $notice = document.querySelector('.notice')
+    const $log = document.querySelector('.log')
+    const $stopBtn = document.querySelector('.stopBtn')
+
+    setTimeout(()=> {
+        $notice.textContent = "🍱 도시락 도착 예정입니다!"
+    }, 1000)
+
+    const timerId = setInterval(()=> {
+        $log.textContent +="⏰ 도시락 받으러 가세요!"
+    }, 2000)
+
+    $stopBtn.addEventListener('click', ()=> {
+        clearInterval(timerId)
+        $log.textContent = '';
+    })
+
+</script>
+
+</body>
+</html>
