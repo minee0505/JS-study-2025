@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 알림 메시지 스타일 */
+        .alert {
+            display: none; /* 기본적으로 숨김 */
+            padding: 15px;
+            background-color: #4CAF50; /* 초록색 배경 */
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+            margin: 20px auto;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        /* 닫기 버튼 스타일 */
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<!-- 알림 메시지 -->
+<div class="alert" id="alertBox">
+    <button class="close-btn" id="closeBtn">×</button>
+    성공적으로 작업이 완료되었습니다!
+</div>
+
+<!— 알림 버튼 —>
+<button id="showAlertBtn">알림 메시지 표시</button>
+
+<script>
+    // 알림버튼을 누르면 알림메시지가 나와야 함,
+    // 지금 기본값 논 누르면 블록으로 (추가 클래스 쇼가 붙으면)
+    const $showAlertBtn = document.getElementById('showAlertBtn');
+    const $alertBox = document.getElementById('alertBox');
+
+    $showAlertBtn.addEventListener('click', ()=> {
+        $alertBox.classList.add('show')
+    })
+
+    // 닫기 버튼을 누르면 다시 클래스쇼가 없어져야 함
+    const $closeBtn = document.getElementById('closeBtn');
+
+    let alertTimerId = null;
+
+    $closeBtn.addEventListener('click', ()=> {
+        $alertBox.classList.remove('show')
+        // 이미 실행중인 기존 타이머를 중지시켜야 함 -  중복 실행 방지
+        clearTimeout(alertTimerId)
+    })
+
+    alertTimerId = setTimeout(()=> {
+        $alertBox.classList.remove('show')
+    }, 3000)
+
+    // 닫기 버튼 계속 누르다 보면 3초 안기다려도 알아서 꺼짐
+    // setTimeout은 내가 누르는 순간 3초를 세기 시작
+    // 근데 내가 3초 안에 닫아버려도, 얘는 3초가 된 시점에 닫는 걸 시도함
+    // 그니까 내가 x를 누르는 순간 기존 타이머를 취소시켜야 함
+
+
+</script>
+</body>
+</html>
